@@ -13,4 +13,10 @@ soup = BeautifulSoup(response.text, "lxml")
 # Получаем csrf_token
 token = soup.find("form").find("input").get("value")
 
-print(token)
+data = {"csrf_token": token, "username": "anonim", "password": "anonim"}
+
+# Авторизуемся на сайте
+result = session.post("https://quotes.toscrape.com/login", headers=headers, data=data, allow_redirects=True)
+
+print(result.text)
+
